@@ -22,5 +22,9 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# research agent output
+content/research/runs/
+content/research/latest/
+
 # system
 .DS_Store

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 
-const DEFAULT_FORMS_API_URL = "https://quadcode.foach.site"
+const DEFAULT_FORMS_API_URL = "https://group.quadcode.com"
 const UTM_FIELDS = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"] as const
 
 type LeadBody = Record<string, unknown>
@@ -23,8 +23,31 @@ function isEmail(value: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
 }
 
-function compactPayload(payload: Record<string, string | boolean>) {
-  return Object.fromEntries(Object.entries(payload).filter(([, value]) => value !== ""))
+function appendIfPresent(payload: URLSearchParams, key: string, value: string) {
+  if (value) {
+    payload.set(key, value)
+  }
+}
+
+function parseCrmResponse(responseText: string) {
+  if (!responseText) {
+    return null
+  }
+
+  try {
+    return JSON.parse(responseText) as unknown
+  } catch {
+    return responseText
+  }
+}
+
+function isCrmRejection(result: unknown) {
+  return (
+    typeof result === "object" &&
+    result !== null &&
+    "success" in result &&
+    (result as { success?: unknown }).success === false
+  )
 }
 
 export async function POST(request: Request) {
@@ -56,27 +79,29 @@ export async function POST(request: Request) {
   const brokerSlug = readString(body, "broker_slug", 120)
   const sourceUrl = readString(body, "source_url", 500)
   const pagePath = readString(body, "page_path", 220)
-  const shortBio = readString(body, "short_bio", 900)
+  const comment = readString(body, "comment", 1200) || readString(body, "short_bio", 900)
 
   const contextLines = [
-    shortBio,
-    brokerName ? `Broker template: ${brokerName}` : "",
+    comment,
+    companyName ? `Company / business: ${companyName}` : "",
+    brokerName ? `Broker reference: ${brokerName}` : "",
     brokerSlug ? `Broker slug: ${brokerSlug}` : "",
     pagePath ? `Page: ${pagePath}` : "",
+    sourceUrl ? `Source URL: ${sourceUrl}` : "",
+    ...UTM_FIELDS.map((field) => {
+      const value = readString(body, field, 180)
+      return value ? `${field}: ${value}` : ""
+    }),
   ].filter(Boolean)
 
-  const payload = compactPayload({
-    first_name: firstName,
-    email,
-    phone,
-    tg: telegram,
-    company_name: companyName,
-    short_bio: contextLines.join("\n"),
-    terms_agree: true,
-    source_url: sourceUrl,
-    form_id: "clone_script_page",
-    ...Object.fromEntries(UTM_FIELDS.map((field) => [field, readString(body, field, 180)])),
-  })
+  const payload = new URLSearchParams()
+
+  payload.set("first_name", firstName)
+  payload.set("email", email)
+  payload.set("phone", phone)
+  payload.set("terms_agree", "on")
+  appendIfPresent(payload, "tg", telegram)
+  appendIfPresent(payload, "comment", contextLines.join("\n"))
 
   const formsApiUrl = process.env.FORMS_API_URL ?? DEFAULT_FORMS_API_URL
   const endpoint = new URL("/api/notPopup", formsApiUrl)
@@ -85,25 +110,25 @@ export async function POST(request: Request) {
     const crmResponse = await fetch(endpoint, {
       method: "POST",
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
         "X-Requested-With": "XMLHttpRequest",
       },
-      body: JSON.stringify(payload),
+      body: payload.toString(),
       cache: "no-store",
     })
 
     const responseText = await crmResponse.text()
-    const responseJson = responseText ? JSON.parse(responseText) : { success: crmResponse.ok }
+    const crmResult = parseCrmResponse(responseText)
 
-    if (crmResponse.ok || crmResponse.status === 422) {
-      return NextResponse.json(responseJson, { status: crmResponse.status })
+    if (!crmResponse.ok || isCrmRejection(crmResult)) {
+      return NextResponse.json(
+        { message: "CRM rejected the lead request. Please check the form fields and try again." },
+        { status: crmResponse.status === 422 ? 422 : 502 }
+      )
     }
 
-    return NextResponse.json(
-      { message: "CRM rejected the lead request.", details: responseJson },
-      { status: 502 }
-    )
+    return NextResponse.json({ success: true, message: "Request sent." })
   } catch {
     return NextResponse.json({ message: "Unable to submit the lead right now." }, { status: 502 })
   }

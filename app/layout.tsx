@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import "./globals.css"
 import { SiteFooter } from "@/components/site/site-footer"
 import { SiteHeader, TrustStrip } from "@/components/site/site-header"
+import { getSiteUrl } from "@/lib/site-url"
 
 export const metadata: Metadata = {
   title: {
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
   },
   description:
     "A Shadcn-style broker directory for comparing broker reviews, categories, geo restrictions, verification dates, and source-backed evidence.",
-  metadataBase: new URL("https://broker-directory.example"),
+  metadataBase: new URL(getSiteUrl()),
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",

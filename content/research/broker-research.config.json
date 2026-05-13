@@ -1,0 +1,164 @@
+{
+  "version": 1,
+  "policy": {
+    "date": "2026-05-13",
+    "defaultLanguage": "en",
+    "promotionRule": "Only promote facts to lib/brokers.ts when they have a source URL and an editorial confidence label.",
+    "requiredSourceMix": ["official", "regulator", "database", "affiliate"]
+  },
+  "queryTemplates": [
+    {
+      "type": "official",
+      "templates": [
+        "{name} official minimum deposit demo account withdrawal fees",
+        "{name} official restricted countries regulation license",
+        "{name} official app iOS Android payment methods"
+      ]
+    },
+    {
+      "type": "affiliate",
+      "templates": [
+        "{name} affiliate program official commission revshare CPA",
+        "{name} partner program payout terms official"
+      ]
+    },
+    {
+      "type": "regulator",
+      "templates": [
+        "{name} regulator warning financial authority",
+        "{name} license warning CySEC FCA ASIC CVM CONSOB"
+      ]
+    },
+    {
+      "type": "database",
+      "templates": [
+        "{name} WikiFX profile regulation complaints",
+        "{name} Traders Union review regulation countries",
+        "{name} BrokersView review warning"
+      ]
+    }
+  ],
+  "brokers": [
+    {
+      "slug": "quotex",
+      "name": "Quotex",
+      "aliases": ["QxBroker", "Maxbit LLC Quotex"],
+      "officialDomains": ["qxbroker.com", "quotex.io", "quotex.com", "quotex.dev", "quotex-partner.com"],
+      "seedUrls": [
+        "https://qxbroker.com/en/",
+        "https://qxbroker.com/en/faq",
+        "https://quotex.dev/en/affiliate-programs/",
+        "https://quotex-partner.com/",
+        "https://financialcommission.org/2025/08/11/scam-alert-quotex-added-to-warning-list-2/",
+        "https://financialcommission.org/2021/07/14/scam-alert-quotex-added-to-warning-list/"
+      ]
+    },
+    {
+      "slug": "pocket-option",
+      "name": "Pocket Option",
+      "aliases": ["PocketOption", "PO Trade", "DataMotion Partners"],
+      "officialDomains": ["pocketoption.com", "po.trade", "potrade.com", "pocketoption.app", "datamotion.partners"],
+      "seedUrls": [
+        "https://pocketoption.com/blog/en/knowledge-base/regulation-and-safety/is-pocket-option-regulated/",
+        "https://pocketoption.com/blog/en/interesting/trading-platforms/what-is-the-minimum-deposit-in-pocket-option/",
+        "https://pocketoption.com/blog/en/interesting/trading-platforms/pocket-option-demo-account/",
+        "https://pocketoption.com/blog/en/platform-update/pocket-option-payment-methods-overview/",
+        "https://pocketoption.com/blog/en/knowledge-base/learning/how-long-does-pocket-option-withdrawal-take/",
+        "https://pocketoption.com/en/payment-policy/",
+        "https://datamotion.partners/en",
+        "https://www.fca.org.uk/news/warnings/pocketoption",
+        "https://www.cftc.gov/REDlist/node/241216"
+      ]
+    },
+    {
+      "slug": "iq-option",
+      "name": "IQ Option",
+      "aliases": ["IQ Option Europe Ltd"],
+      "officialDomains": ["iqoption.com", "blog.iqoption.com", "affiliate.iqoption.com"],
+      "seedUrls": [
+        "https://blog.iqoption.com/en/is-iq-option-legit-5-criteria-for-evaluating-trustworthiness/",
+        "https://iqoption.com/en",
+        "https://iqoption.com/en/demo-trading",
+        "https://iqoption.com/en/download",
+        "https://www.cysec.gov.cy/en-GB/entities/investment-firms/cypriot/40647/",
+        "https://affiliate.iqoption.com/en/agreement",
+        "https://affiliate.iqoption.com/en/scheme"
+      ]
+    },
+    {
+      "slug": "olymp-trade",
+      "name": "Olymp Trade",
+      "aliases": ["Olymptrade"],
+      "officialDomains": ["olymptrade.com"],
+      "seedUrls": [
+        "https://olymptrade.com/pages/about/support",
+        "https://olymptrade.com/pages/about/faq",
+        "https://olymptrade.com/pages/regulation/",
+        "https://olymptrade.com/pages/trading/account/",
+        "https://olymptrade.com/pages/trading/account/free-demo/",
+        "https://olymptrade.com/pages/trading-apps/",
+        "https://olymptrade.com/pages/trading/withdrawals/",
+        "https://kingfin.com/",
+        "https://www.fca.org.uk/news/warnings/olymp-trader"
+      ]
+    },
+    {
+      "slug": "binomo",
+      "name": "Binomo",
+      "aliases": ["Affiliate Top Binomo"],
+      "officialDomains": ["binomo.com", "blog.binomo.com", "helpcenter.binomo4.com"],
+      "seedUrls": [
+        "https://binomo.com/",
+        "https://blog.binomo.com/about-binomo/",
+        "https://helpcenter.binomo4.com/hc/en-us/articles/4407442649619-What-s-a-demo-account",
+        "https://helpcenter.binomo4.com/hc/en-us/articles/360046325233-What-is-the-Binomo-affiliate-program",
+        "https://www.fca.org.uk/news/warnings/binomo-fx-trading"
+      ]
+    },
+    {
+      "slug": "deriv",
+      "name": "Deriv",
+      "aliases": ["Deriv.com", "Binary.com"],
+      "officialDomains": ["deriv.com", "trade.deriv.com"],
+      "seedUrls": [
+        "https://deriv.com/regulatory",
+        "https://deriv.com/payment-methods",
+        "https://trade.deriv.com/trade/options/digital-options",
+        "https://deriv.com/help-centre/deposits-and-withdrawals",
+        "https://deriv.com/partners",
+        "https://deriv.com/trading-platforms/deriv-go",
+        "https://partners-academy.deriv.com/articles/deriv-commission-plans"
+      ]
+    },
+    {
+      "slug": "expertoption",
+      "name": "ExpertOption",
+      "aliases": ["Expert Option"],
+      "officialDomains": ["expertoption.com", "expertoption.money"],
+      "seedUrls": [
+        "https://www.expertoption.com",
+        "https://expertoption.com/company/about/",
+        "https://expertoption.com/company/regulation/",
+        "https://expertoption.com/company/policy/referral/",
+        "https://expertoption.com/trade/account-types/",
+        "https://ru.expertoption.com/trade/faq/",
+        "https://www.expertoption.money/trade/faq/",
+        "https://www.fca.org.uk/news/warnings/experttopoption",
+        "https://www.fca.org.uk/news/warnings/expert-option-fx"
+      ]
+    },
+    {
+      "slug": "binarium",
+      "name": "Binarium",
+      "aliases": ["Binarium.com"],
+      "officialDomains": ["binarium.com"],
+      "seedUrls": [
+        "https://binarium.com/",
+        "https://www.fca.org.uk/news/warnings/binarium",
+        "https://www.wikifx.com/en/dealer/4861455002.html",
+        "https://www.binaryoptions.net/binarium",
+        "https://fxnewsgroup.com/forex-news/regulatory/cysec-issues-warning-regarding-binarium/"
+      ]
+    }
+  ]
+}

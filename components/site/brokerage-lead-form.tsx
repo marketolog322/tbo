@@ -57,7 +57,7 @@ export function BrokerageLeadForm({ brokerName, brokerSlug }: LeadFormProps) {
       phone: readFormValue(formData, "phone"),
       tg: readFormValue(formData, "tg"),
       company_name: readFormValue(formData, "company_name"),
-      short_bio: readFormValue(formData, "short_bio"),
+      comment: readFormValue(formData, "comment"),
       terms_agree: formData.get("terms_agree") === "on",
       broker_name: brokerName,
       broker_slug: brokerSlug,
@@ -93,7 +93,7 @@ export function BrokerageLeadForm({ brokerName, brokerSlug }: LeadFormProps) {
 
       form.reset()
       setStatus("success")
-      setMessage("Request sent. The launch team can follow up from the CRM.")
+      setMessage("Thanks. Your request has been sent. We will contact you shortly.")
     } catch (error) {
       setStatus("error")
       setMessage(error instanceof Error ? error.message : "Could not send the request.")
@@ -108,7 +108,7 @@ export function BrokerageLeadForm({ brokerName, brokerSlug }: LeadFormProps) {
           Request launch quote
         </CardTitle>
         <p className="text-sm leading-6 text-muted-foreground">
-          Same CRM intake as the BeBroker landing: contact details, business context, and launch notes.
+          Share your contact details and project context. The request goes straight to our CRM for follow-up.
         </p>
       </CardHeader>
       <CardContent>
@@ -135,12 +135,12 @@ export function BrokerageLeadForm({ brokerName, brokerSlug }: LeadFormProps) {
             <Input id="lead-company" name="company_name" placeholder="Brokerage, affiliate team, fintech project..." />
           </Field>
 
-          <Field label="Launch notes" htmlFor="lead-notes">
+          <Field label="Project notes" htmlFor="lead-notes">
             <textarea
               id="lead-notes"
-              name="short_bio"
+              name="comment"
               className={fieldClassName}
-              placeholder="Target regions, PSP needs, apps, CRM, timeline..."
+              placeholder="Target regions, PSPs, apps, CRM needs, launch timeline..."
             />
           </Field>
 
